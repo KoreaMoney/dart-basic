@@ -75,3 +75,209 @@
 // }
 //--------------------------------------------------------------------------------------------------------
 
+//자료형 : dart언어의 대부분은 object입니다. 그래서 객체 지향 언어라고 불립니다.
+
+// BASIC
+// void main() {
+//   String name = "hello"; // 문자열
+//   bool actvie = false; // boolean
+//   int age = 12; // 정수
+//   double moneny = 12.86; // 소수점
+// }
+//--------------------------------------------------------------------------------------------------------
+
+// LISTS
+// void main() {
+//   var giveMeFive = true;
+//   var numbers = [
+//     1,
+//     2,
+//     3,
+//     4,
+//     5,
+//     if (giveMeFive) 6,
+//   ]; // var대신 List<int>을 사용해도 결과는 동일하다.
+//   numbers.add(2); // 추가는 add로 진행한다.
+//   numbers.first; // 첫번째 값을 찾아준다.
+//   numbers.last; // 마지막 값을 찾아준다.
+
+//   print(numbers);
+// }
+//--------------------------------------------------------------------------------------------------------
+
+// String Interpolation : 변수에 text를 추가하는 방법 ($)
+// void main() {
+//   var name = "hello";
+//   var age = 25;
+//   var world = "$name is world and $name is ${age + 2}";
+//   print(world);
+// }
+//--------------------------------------------------------------------------------------------------------
+
+// Collection For :
+// void main() {
+//   var first = [
+//     "KOREA",
+//     "JAPAN",
+//     "USA",
+//   ];
+//   var second = [
+//     "UK",
+//     "AUS",
+//     "FRANCE",
+//     for (var country in first) "$country",
+//   ];
+//   print(second);
+// }
+//--------------------------------------------------------------------------------------------------------
+
+// MAPS : 여기에서 object는 typescript에서 any와 같은 존재다.
+// void main() {
+// var player = {
+//   "name": "john",
+//   "xp": 19.85,
+//   "superpower": false,
+// };
+
+// 아래와 같은 구조의 형태는 결국 key값은 int가 되고 value는 boolean이 된다.
+// Map<int, bool> player = {
+//   1: false,
+//   2: true,
+// };
+// print(player[1]); // 결과 false
+// print(player[2]); // 결과 true
+
+// Map<List<int>, bool> player = {
+//   [1, 2, 5]: false,
+//   [2, 5, 6]: true,
+// };
+// print(player);
+
+//   List<Map<String, bool>> player = [
+//     {
+//       "korea": true,
+//       "japan": false,
+//     }
+//   ];
+//   print(player);
+// }
+//--------------------------------------------------------------------------------------------------------
+
+// SETS : 순서가 있으며 반복적으로 들어와도 하나만 등록이 된다.
+// void main() {
+//   Set<String> numbers = {
+//     "1",
+//     "2",
+//     "3",
+//   };
+//   numbers.add("1");
+//   numbers.add("1");
+//   numbers.add("1");
+//   numbers.add("1");
+//   numbers.add("1");
+//   print(numbers); // 결과 : {1, 2, 3}
+// }
+//--------------------------------------------------------------------------------------------------------
+
+// Functions
+/**
+ * 정의 : Dart는 진정한 객체 지향 언어이므로 함수도 객체이며 타입이 Function입니다.
+ * 이는 함수를 변수에 할당하거나 다른 함수에 인수로 전달할 수 있음을 의미합니다.
+ */
+// String sayHello(String name) {
+//   return "Hello $name nice meet you!";
+// }
+
+// String sayKoko(String name) => "Hello $name!";
+// num plus(num a, num b) => a + b;
+// void main() {
+//   print(sayHello("korea"));
+//   print(sayKoko("korea"));
+//   print(plus(5, 10));
+// }
+//--------------------------------------------------------------------------------------------------------
+
+/**
+ * named parameter : parameter에 더 많은 내용을 담고 싶을 때 사용. 
+ * num은 double을 받아서 소수점이 들어가지만 int는 정수라서 소수점이 들어가지 않는다.
+ * Named parameters는 명시적으로 required로 표시되지 않는 한 선택 사항입니다. 
+ * 기본값을 제공하지 않거나 Named parameters를 필수로 표시하지 않으면 해당 유형은 기본값이 null이 되므로 null을 허용해야 합니다.
+ * 매개변수 앞에 required를 적어주면, 함수가 호출될 때 반드시 required가 적힌 매개변수가 포함되어야 한다는 것이다.
+ */
+// String sayHello(
+//         {required String name, required int age, required String country}) =>
+//     "My name is $name and my age is $age and I have been born $country";
+// void main() {
+//   print(sayHello(
+//     age: 25,
+//     name: "john",
+//     country: "south korea",
+//   ));
+// }
+//--------------------------------------------------------------------------------------------------------
+
+/**
+ * Optional positional parameters
+ * Dart에서 [] 은 optional, positional parameter를 명시할 때 사용된다.
+ * name, age는 필수값이고 []를 통해 country를 optional값으로 지정해줄 수 있다.
+ */
+// String sayHello(String name, int age, [String? country = "south korea"]) =>
+//     "Hello $name, you are $age years old from $country";
+// void main() {
+//   var results = sayHello("korea", 25);
+//   print(results);
+// }
+//--------------------------------------------------------------------------------------------------------
+
+/**
+ * QQ Operator
+ * 1. QQ = ??이다. 용도 : ?? 연산자를 이용하면 왼쪽 값이 null인지 체크해서 null이 아니면 왼쪽 값을 리턴하고 null이면 오른쪽 값을 리턴한다.
+ * ??= 연산자를 이용하면 변수 안에 값이 null일 때를 체크해서 값을 할당해줄 수 있다.
+ * 2. Operator = ?=이다.
+ * left ?? right
+    -> left가 null이면 right return
+    -> left가 null이 아니면 left return
+ * left ??= 'ggg'
+    -> left가 null이면 'ggg'를 넣어줌
+ */
+// String capitalizeName(String? name) => name?.toUpperCase() ?? "null값";
+// void main() {
+//   var results = capitalizeName("korea");
+//   var resultsNull = capitalizeName(null);
+//   print(results);
+//   print(resultsNull);
+// }
+// ?= 예시
+// void main() {
+//   String? name;
+//   name ??= "sugar";
+//   name = null;
+//   name ??= "js";
+//   print(name);
+// }
+//--------------------------------------------------------------------------------------------------------
+
+/**
+ * Typedef
+ * 자료형에 사용자가 원하는 alias를 붙일 수 있게 해준다. (자료형 이름의 별명을 만들 때 사용)
+ */
+// typedef ListOfInt = List;
+
+// ListOfInt reverseListOfNumbers(ListOfInt list) {
+//   var reversedList = list.reversed.toList();
+//   return reversedList;
+// }
+
+// void main() {
+//   print(reverseListOfNumbers([1, 2, 3]));
+// }
+
+typedef UserInfo = Map;
+
+String sayHi(UserInfo userInfo) {
+  return "Hi ${userInfo['name']}";
+}
+
+void main() {
+  print(sayHi({"name": 'korea'}));
+}
