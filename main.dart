@@ -80,9 +80,9 @@
 // BASIC
 // void main() {
 //   String name = "hello"; // 문자열
-//   bool actvie = false; // boolean
+//   bool active = false; // boolean
 //   int age = 12; // 정수
-//   double moneny = 12.86; // 소수점
+//   double money = 12.86; // 소수점
 // }
 //--------------------------------------------------------------------------------------------------------
 
@@ -272,12 +272,132 @@
 //   print(reverseListOfNumbers([1, 2, 3]));
 // }
 
-typedef UserInfo = Map;
+// typedef UserInfo = Map;
 
-String sayHi(UserInfo userInfo) {
-  return "Hi ${userInfo['name']}";
+// String sayHi(UserInfo userInfo) {
+//   return "Hi ${userInfo['name']}";
+// }
+
+// void main() {
+//   print(sayHi({"name": 'korea'}));
+// }
+//--------------------------------------------------------------------------------------------------------
+
+// CLASS
+/**
+ * class생성 시에는 필수적으로 type을 작성하여야 한다.
+ */
+// // BASIC
+// class Player {
+//   final name = "korea";
+//   int xp = 1500;
+//   void sayHello() {
+//     print("hi my name is $name");
+//   }
+// }
+
+// void main() {
+//   var player = Player();
+//   player.sayHello();
+//   print(player.name);
+// }
+//--------------------------------------------------------------------------------------------------------
+
+// CONSTRUCTOR
+// class Player {
+//   final String name;
+//   int xp;
+
+//   Player(this.name, this.xp);
+
+//   void sayHello() {
+//     print("hi my name is $name");
+//   }
+// }
+
+// void main() {
+//   var player = Player("usa", 1500);
+//   player.sayHello();
+
+//   var player2 = Player("aus", 1300);
+//   player2.sayHello();
+// }
+//--------------------------------------------------------------------------------------------------------
+
+// NAMED CONSTRUCTOR PARAMETERS
+// class Player {
+//   final String name;
+//   int xp;
+//   int age;
+//   String team;
+
+//   Player({
+//     required this.name,
+//     required this.xp,
+//     required this.age,
+//     required this.team,
+//   });
+
+//   void sayHello() {
+//     print("hi my name is $name and age is $age and team is $team");
+//   }
+// }
+
+// void main() {
+//   var player = Player(
+//     name: "usa",
+//     xp: 1500,
+//     age: 25,
+//     team: "blue",
+//   );
+//   player.sayHello();
+
+//   var player2 = Player(
+//     name: "aus",
+//     xp: 2800,
+//     age: 29,
+//     team: "yellow",
+//   );
+//   player2.sayHello();
+// }
+//--------------------------------------------------------------------------------------------------------
+
+// NAMED CONSTRUCTOR
+class Player {
+  final String name, team;
+  int xp, age;
+
+  Player({
+    required this.name,
+    required this.xp,
+    required this.age,
+    required this.team,
+  });
+// class 값을 초기화 하는 방법
+  Player.createBluePlayer({required String name, required int age})
+      : this.age = age,
+        this.name = name,
+        this.team = "blue",
+        this.xp = 0;
+
+  Player.createRedPlayer({required String name, required int age})
+      : this.age = age,
+        this.name = name,
+        this.team = "red",
+        this.xp = 0;
+
+  void sayHello() {
+    print("hi my name is $name and age is $age and team is $team");
+  }
 }
 
 void main() {
-  print(sayHi({"name": 'korea'}));
+  var bluePlayer = Player.createBluePlayer(
+    name: "usa",
+    age: 25,
+  );
+  var redPlayer = Player.createRedPlayer(
+    name: "usa",
+    age: 25,
+  );
 }
