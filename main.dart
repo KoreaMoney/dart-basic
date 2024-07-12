@@ -363,41 +363,266 @@
 //--------------------------------------------------------------------------------------------------------
 
 // NAMED CONSTRUCTOR
-class Player {
-  final String name, team;
-  int xp, age;
+// class Player {
+//   final String name, team;
+//   int xp, age;
 
-  Player({
-    required this.name,
-    required this.xp,
-    required this.age,
-    required this.team,
-  });
-// class 값을 초기화 하는 방법
-  Player.createBluePlayer({required String name, required int age})
-      : this.age = age,
-        this.name = name,
-        this.team = "blue",
-        this.xp = 0;
+//   Player({
+//     required this.name,
+//     required this.xp,
+//     required this.age,
+//     required this.team,
+//   });
+// // class 값을 초기화 하는 방법
+//   Player.createBluePlayer({required String name, required int age})
+//       : this.age = age,
+//         this.name = name,
+//         this.team = "blue",
+//         this.xp = 0;
 
-  Player.createRedPlayer({required String name, required int age})
-      : this.age = age,
-        this.name = name,
-        this.team = "red",
-        this.xp = 0;
+//   Player.createRedPlayer({required String name, required int age})
+//       : this.age = age,
+//         this.name = name,
+//         this.team = "red",
+//         this.xp = 0;
 
-  void sayHello() {
-    print("hi my name is $name and age is $age and team is $team");
+//   void sayHello() {
+//     print("hi my name is $name and age is $age and team is $team");
+//   }
+// }
+
+// void main() {
+//   var bluePlayer = Player.createBluePlayer(
+//     name: "aus",
+//     age: 25,
+//   );
+//   var redPlayer = Player.createRedPlayer(
+//     name: "usa",
+//     age: 22,
+//   );
+//   bluePlayer.sayHello();
+//   redPlayer.sayHello();
+// }
+//--------------------------------------------------------------------------------------------------------
+
+// CASCADE NOTATION : 반복되는 부분이 있다. dart에서는 이걸 간단하게 ..으로 해결할 수 있다.
+
+// class Player {
+//   String name;
+//   int xp;
+//   String team;
+
+//   Player({
+//     required this.name,
+//     required this.xp,
+//     required this.team,
+//   });
+
+//   void sayHello() {
+//     print("Hi my name is $name and my team is $team and my xp is $xp");
+//   }
+// }
+
+// void main() {
+//   var korea = Player(
+//     name: "korea",
+//     xp: 10,
+//     team: "black",
+//   );
+//   var change = korea
+//     ..name = "germany"
+//     ..xp = 350
+//     ..team = "white"
+//     ..sayHello();
+//   print(change);
+// }
+//--------------------------------------------------------------------------------------------------------
+
+// ENUMS : enum은 우리가 실수하지 않도록 도와주는 타입이다.
+// enum Team {
+//   black,
+//   white,
+// }
+
+// enum XPLevel {
+//   beginner,
+//   medium,
+//   pro,
+// }
+
+// class Player {
+//   String name;
+//   XPLevel xp;
+//   Team team;
+
+//   Player({
+//     required this.name,
+//     required this.xp,
+//     required this.team,
+//   });
+
+//   void sayHello() {
+//     print(
+//         "Hi my name is $name and my team is ${team.name} and my xp is ${xp.name}");
+//   }
+// }
+
+// void main() {
+//   var korea = Player(
+//     name: "korea",
+//     xp: XPLevel.beginner,
+//     team: Team.black,
+//   );
+//   var change = korea
+//     ..name = "germany"
+//     ..xp = XPLevel.pro
+//     ..team = Team.white
+//     ..sayHello();
+//   print(change);
+// }
+//--------------------------------------------------------------------------------------------------------
+
+// 추상화 클래스
+/**
+ * 추상화 클래스는 다른 클래스들이 직접 구현 해야하는 메소드들을 모아놓은 일종의 `청사진`이라 보면 된다.
+ * 추상 클래스에서는 기능을 구현하지 않는다. 
+ */
+// abstract class Human {
+//   void walk();
+// }
+
+// enum Team {
+//   black,
+//   white,
+// }
+
+// enum XPLevel {
+//   beginner,
+//   medium,
+//   pro,
+// }
+
+// class Player extends Human {
+//   String name;
+//   XPLevel xp;
+//   Team team;
+
+//   Player({
+//     required this.name,
+//     required this.xp,
+//     required this.team,
+//   });
+
+//   void walk() {
+//     print("I am walking");
+//   }
+
+//   void sayHello() {
+//     print(
+//         "Hi my name is $name and my team is ${team.name} and my xp is ${xp.name}");
+//   }
+// }
+
+// class Coach extends Human {
+//   void walk() {
+//     print("the coach is walking");
+//   }
+// }
+
+// void main() {
+//   var korea = Player(
+//     name: "korea",
+//     xp: XPLevel.beginner,
+//     team: Team.black,
+//   );
+//   var change = korea
+//     ..name = "germany"
+//     ..xp = XPLevel.pro
+//     ..team = Team.white
+//     ..sayHello();
+//   print(change);
+
+//   var coach = Coach();
+//   change.walk();
+//   coach.walk();
+// }
+//--------------------------------------------------------------------------------------------------------
+
+// Inheritance : 상속 , super class사용하기
+// class Human {
+//   final String name;
+//   Human(this.name);
+
+//   void sayHello() {
+//     print("Hi my name is $name");
+//   }
+// }
+
+// enum Team {
+//   black,
+//   white,
+// }
+
+// class Player extends Human {
+//   final Team team;
+//   Player({required this.team, required String name}) : super(name);
+
+//   @override
+//   void sayHello() {
+//     super.sayHello();
+//     print('and I paly for ${team}');
+//   }
+// }
+
+// void main() {
+//   var player = Player(team: Team.black, name: "korea");
+// }
+//--------------------------------------------------------------------------------------------------------
+
+// Mixin class
+/**
+ * Mixin은 생성자가 없는 클래스를 의미한다.
+ * Mixin 클래스는 상속을 할 때 extends를 하지 않고 with 를 사용한다.
+ * Mixin의 핵심은 여러 클래스에 재사용이 가능하다는 점이다.
+ * Mixin: Mixin은 클래스에 코드를 재사용하기 위해 사용되며, 다중 상속의 일부 단점을 보완합니다. 
+ * Interface: Interface는 클래스나 객체가 구현해야 하는 메서드와 속성의 목록을 정의합니다.
+ * 즉, 인터페이스는 클래스나 객체가 가져야 하는 기능의 규격을 제공합니다. 
+ * 인터페이스는 implements 키워드를 사용하여 클래스에서 구현합니다.
+ * Mixin과 Interface는 비슷한 개념이지만, Mixin은 클래스에 코드를 적용하는 데 사용되고,
+ * Interface는 클래스나 객체가 가져야 하는 기능의 규격을 정의하는 데 사용됩니다.
+ */
+mixin class Strong {
+  final double strongLevel = 1500.99;
+}
+
+mixin class QuickRunner {
+  void runQuick() {
+    print("runQuick");
   }
 }
 
-void main() {
-  var bluePlayer = Player.createBluePlayer(
-    name: "usa",
-    age: 25,
-  );
-  var redPlayer = Player.createRedPlayer(
-    name: "usa",
-    age: 25,
-  );
+mixin class Tall {
+  final double height = 1.99;
 }
+
+enum Team {
+  black,
+  white,
+}
+
+class Player with Strong, QuickRunner, Tall {
+  final Team team;
+  Player({required this.team});
+}
+
+class Horse with Strong, QuickRunner {
+  // 선택해서 사용이 가능하다.
+}
+
+void main() {
+  var player = Player(team: Team.black);
+  print(player.height);
+  print(player.strongLevel);
+  player.runQuick();
+}
+//--------------------------------------------------------------------------------------------------------
